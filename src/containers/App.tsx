@@ -1,29 +1,43 @@
 import * as React from 'react'
+import { lifecycle } from 'recompose'
+import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { State } from '../modules/value'
+import { initGame, State } from '../modules/game'
 
 interface StateToProps {
-  cards: number[]
+  cardsText: string
 }
 
-interface DispatchToProps {}
+interface DispatchToProps {
+  initGame: () => void
+}
 
 type Props = StateToProps & DispatchToProps
 
-const App = ({ cards }: Props) => (
+const Cards = ({ cardsText }: Props) => (
   <div>
-    <h1>{cards}</h1>
+    <h1>{cardsText}</h1>
   </div>
 )
 
 const mapStateToProps = (state: State): StateToProps => ({
-  cards: state.cards
+  cardsText: state.cardsText
 })
 
-const mapDispatchToProps = (): DispatchToProps => ({})
+const mapDispatchToProps = (dispatch: Dispatch<void>): DispatchToProps => ({
+  initGame: () => {
+    dispatch(initGame())
+  }
+})
+
+const Initializer = lifecycle<DispatchToProps, State>({
+  componentDidMount() {
+    this.props.initGame()
+  }
+})(Cards)
 
 export default connect<StateToProps, DispatchToProps, void, State>(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(Initializer)
