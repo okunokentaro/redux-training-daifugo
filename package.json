@@ -1,0 +1,56 @@
+{
+  "name": "redux-training-daifugo",
+  "version": "0.1.0",
+  "bugs": {
+    "url": "https://github.com/armorik83/redux-training-daifugo/issues"
+  },
+  "dependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-redux": "^5.0.7",
+    "typescript-fsa": "^2.5.0",
+    "typescript-fsa-reducers": "^0.4.5"
+  },
+  "devDependencies": {
+    "@types/react": "^16.1.0",
+    "@types/react-dom": "^16.0.4",
+    "@types/react-redux": "^5.0.15",
+    "@types/redux": "^3.6.0",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "lint-staged": "^7.0.1",
+    "prettier": "^1.11.1",
+    "ts-loader": "^4.1.0",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "typescript": "^2.8.1",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "homepage": "https://github.com/armorik83/redux-training-daifugo#readme",
+  "keywords": [],
+  "license": "ISC",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "main": "index.js",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armorik83/redux-training-daifugo.git"
+  },
+  "scripts": {
+    "build:dev": "webpack --mode development",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "precommit": "lint-staged",
+    "start": "webpack-dev-server --hot --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
