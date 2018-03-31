@@ -1,40 +1,29 @@
 import * as React from 'react'
-import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { increment, decrement, State } from '../modules/value'
+import { State } from '../modules/value'
 
-const App = ({
-  value,
-  increment,
-  decrement
-}: {
-  value: number
-  increment: () => void
-  decrement: () => void
-}) => (
+interface StateToProps {
+  cards: number[]
+}
+
+interface DispatchToProps {}
+
+type Props = StateToProps & DispatchToProps
+
+const App = ({ cards }: Props) => (
   <div>
-    <h1>{value}</h1>
-    <button onClick={() => increment()}>+</button>
-    <button onClick={() => decrement()}>-</button>
+    <h1>{cards}</h1>
   </div>
 )
 
-const mapStateToProps = (state: State) => ({
-  value: state.value
+const mapStateToProps = (state: State): StateToProps => ({
+  cards: state.cards
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  increment: () => dispatch(increment()),
-  decrement: () => dispatch(decrement())
-})
+const mapDispatchToProps = (): DispatchToProps => ({})
 
-export default connect<
-  { value: number },
-  {
-    increment: () => void
-    decrement: () => void
-  },
-  void,
-  State
->(mapStateToProps, mapDispatchToProps)(App)
+export default connect<StateToProps, DispatchToProps, void, State>(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

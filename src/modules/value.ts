@@ -14,13 +14,13 @@ export const decrement = actionCreator('DECREMENT')
 //
 
 export interface State {
-  value: number
+  cards: number[]
 }
 
-export default reducerWithInitialState<State>({ value: 0 })
+export default reducerWithInitialState<State>({ cards: [0] })
   .case(increment, state => {
-    return { ...state, value: state.value + 1 }
+    return { ...state }
   })
   .case(decrement, state => {
-    return { ...state, value: state.value - 1 }
+    return { ...state }
   })
