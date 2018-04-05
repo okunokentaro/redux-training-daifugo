@@ -3,7 +3,7 @@ import { lifecycle } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { initGame, State } from '../modules/game'
+import { actions, State } from '../modules/game'
 
 interface StateToProps {
   cardsText: string
@@ -26,9 +26,7 @@ const mapStateToProps = (state: State): StateToProps => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<void>): DispatchToProps => ({
-  initGame: () => {
-    dispatch(initGame())
-  }
+  initGame: () => dispatch(actions.initGame())
 })
 
 const Initializer = lifecycle<DispatchToProps, State>({
