@@ -6,4 +6,8 @@ export class Card {
   toString(): string {
     return `${this.suit}${this.num}`
   }
+
+  clone(): Card {
+    return new Card(this.suit, this.num)
+  }
 }

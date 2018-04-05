@@ -3,23 +3,21 @@ import { lifecycle } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { actions, State } from '../modules/game'
+import { GameConfig, initGame, State } from '../modules/game'
 
 interface StateToProps {
   cards: string
 }
 
 interface DispatchToProps {
-  initGame: () => void
+  initGame: (gameConfig: GameConfig) => void
 }
 
 type Props = StateToProps & DispatchToProps
 
-const Cards = ({ cards }: Props) => (
-  <div>
-    <h1>{cards}</h1>
-  </div>
-)
+//
+// Implementation
+//
 
 const mapStateToProps = (state: State) =>
   ({
@@ -28,12 +26,18 @@ const mapStateToProps = (state: State) =>
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
-    initGame: () => dispatch(actions.initGame()),
+    initGame: gameConfig => dispatch(initGame(gameConfig)),
   } as DispatchToProps)
+
+const Cards = ({ cards }: Props) => (
+  <div>
+    <h1>{cards}</h1>
+  </div>
+)
 
 const Initializer = lifecycle<DispatchToProps, State>({
   componentDidMount() {
-    this.props.initGame()
+    this.props.initGame({ player: 4 })
   },
 })(Cards)
 
