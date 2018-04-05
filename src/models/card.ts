@@ -1,4 +1,4 @@
-type Suit = 'S' | 'C' | 'D' | 'H'
+export type Suit = 'S' | 'C' | 'D' | 'H'
 
 export class Card {
   constructor(private suit: Suit, private num: number) {}

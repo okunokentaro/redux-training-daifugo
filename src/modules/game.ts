@@ -8,14 +8,12 @@ import { Cards } from '../models/cards'
 
 const actionCreator = actionCreatorFactory()
 export const actions = {
-  initGame: actionCreator('INIT_GAME')
+  initGame: actionCreator('INIT_GAME'),
 }
 
 const initGame = () => {
   const cards = Cards.init()
-  return {
-    cards
-  }
+  return { cards }
 }
 
 //

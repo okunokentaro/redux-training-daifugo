@@ -23,18 +23,18 @@ const Cards = ({ cards }: Props) => (
 
 const mapStateToProps = (state: State) =>
   ({
-    cards: state.cards.toString()
+    cards: state.cards.toString(),
   } as StateToProps)
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
-    initGame: () => dispatch(actions.initGame())
+    initGame: () => dispatch(actions.initGame()),
   } as DispatchToProps)
 
 const Initializer = lifecycle<DispatchToProps, State>({
   componentDidMount() {
     this.props.initGame()
-  }
+  },
 })(Cards)
 
 export default connect<StateToProps, DispatchToProps, void, State>(
