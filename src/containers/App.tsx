@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { actions, State } from '../modules/game'
 
 interface StateToProps {
-  cardsText: string
+  cards: string
 }
 
 interface DispatchToProps {
@@ -15,19 +15,21 @@ interface DispatchToProps {
 
 type Props = StateToProps & DispatchToProps
 
-const Cards = ({ cardsText }: Props) => (
+const Cards = ({ cards }: Props) => (
   <div>
-    <h1>{cardsText}</h1>
+    <h1>{cards}</h1>
   </div>
 )
 
-const mapStateToProps = (state: State): StateToProps => ({
-  cardsText: state.cardsText
-})
+const mapStateToProps = (state: State) =>
+  ({
+    cards: state.cards.toString()
+  } as StateToProps)
 
-const mapDispatchToProps = (dispatch: Dispatch<void>): DispatchToProps => ({
-  initGame: () => dispatch(actions.initGame())
-})
+const mapDispatchToProps = (dispatch: Dispatch<void>) =>
+  ({
+    initGame: () => dispatch(actions.initGame())
+  } as DispatchToProps)
 
 const Initializer = lifecycle<DispatchToProps, State>({
   componentDidMount() {
