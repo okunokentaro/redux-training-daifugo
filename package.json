@@ -43,7 +43,7 @@
   "prettier": {
     "semi": false,
     "singleQuote": true,
-    "trailingComma": true
+    "trailingComma": "all"
   },
   "repository": {
     "type": "git",

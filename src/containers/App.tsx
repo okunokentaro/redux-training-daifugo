@@ -4,9 +4,10 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { GameConfig, initGame, State } from '../modules/game'
+import { Cards } from '../models/cards'
 
 interface StateToProps {
-  cards: string
+  hands: Cards[]
 }
 
 interface DispatchToProps {
@@ -21,7 +22,7 @@ type Props = StateToProps & DispatchToProps
 
 const mapStateToProps = (state: State) =>
   ({
-    cards: state.cards.toString(),
+    hands: state.hands,
   } as StateToProps)
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
@@ -29,19 +30,17 @@ const mapDispatchToProps = (dispatch: Dispatch<void>) =>
     initGame: gameConfig => dispatch(initGame(gameConfig)),
   } as DispatchToProps)
 
-const Cards = ({ cards }: Props) => (
-  <div>
-    <h1>{cards}</h1>
-  </div>
+const Game = ({ hands }: Props) => (
+  <div>{hands.map((hand, i) => <p key={i}>{hand.toString()}</p>)}</div>
 )
 
 const Initializer = lifecycle<DispatchToProps, State>({
   componentDidMount() {
     this.props.initGame({ player: 4 })
   },
-})(Cards)
+})(Game)
 
 export default connect<StateToProps, DispatchToProps, void, State>(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Initializer)

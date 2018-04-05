@@ -36,4 +36,15 @@ export class Cards {
     mutateShuffle(arr)
     return new Cards(arr)
   }
+
+  deal(player: number): Cards[] {
+    const initial = [...Array(player)].map(_ => []) as Card[][]
+
+    const rawCards = this.list.reduce((acc, v, i) => {
+      acc[i % player].push(v)
+      return acc
+    }, initial)
+
+    return rawCards.map(v => new Cards(v))
+  }
 }

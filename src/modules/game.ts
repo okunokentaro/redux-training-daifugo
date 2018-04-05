@@ -8,6 +8,7 @@ export interface GameConfig {
 
 export interface State {
   cards: Cards
+  hands: Cards[]
 }
 
 //
@@ -21,12 +22,15 @@ export const initGame = actionCreator<GameConfig>('INIT_GAME')
 // Reducer
 //
 
-const initialState: State = { cards: Cards.init() }
+const initialState: State = { cards: Cards.init(), hands: [] }
 
 export default reducerWithInitialState<State>(initialState).case(
   initGame,
-  state => {
+  (state, gameConfig) => {
+    const player = gameConfig.player
     const cards = state.cards.shuffle()
-    return { ...state, cards }
-  }
+    const hands = cards.deal(player)
+
+    return { ...state, cards, hands }
+  },
 )
