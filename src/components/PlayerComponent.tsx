@@ -15,7 +15,7 @@ export default pure(function PlayerComponent({
   turn,
   onClickCard,
 }: Props) {
-  if (turn === player.id) {
+  if (turn === player.order) {
     return (
       <div>
         {player.hand.toArray().map((card, i) => (

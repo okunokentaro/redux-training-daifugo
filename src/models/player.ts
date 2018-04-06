@@ -1,3 +1,4 @@
+import { v4 } from 'uuid'
 import { Hand } from './card/hand'
 
 export const makePlayers = (numOfPlayers: number, hands: Hand[]) => {
@@ -6,11 +7,14 @@ export const makePlayers = (numOfPlayers: number, hands: Hand[]) => {
 }
 
 export class Player {
+  private id_: string
   private hand_ = Hand.blank()
 
-  constructor(private id_: number) {}
+  constructor(private order_: number) {
+    this.id_ = v4()
+  }
 
-  get id(): number {
+  get id(): string {
     return this.id_
   }
 
@@ -18,12 +22,21 @@ export class Player {
     return this.hand_
   }
 
+  get order(): number {
+    return this.order_
+  }
+
   toString(): string {
-    return `${this.id_}: ${this.hand_.toString()}`
+    return `${this.order_}: ${this.hand_.toString()}`
   }
 
   clone(): Player {
-    return new Player(this.id_)
+    const instance = new Player(this.order)
+
+    instance.id_ = this.id
+    instance.hand_ = this.hand
+
+    return instance
   }
 
   pickHand(hand: Hand): Player {

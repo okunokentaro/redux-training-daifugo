@@ -16,6 +16,8 @@ export class Card {
   }
 
   clone(): Card {
-    return new Card(this.suit, this.num)
+    const instance = new Card(this.suit, this.num)
+    instance.id = this.id
+    return instance
   }
 }
