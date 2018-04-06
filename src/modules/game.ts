@@ -1,7 +1,7 @@
 import actionCreatorFactory from 'typescript-fsa'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
-import { Deck } from '../models/deck'
-import { Hand } from '../models/hand'
+import { Deck } from '../models/card/deck'
+import { Hand } from '../models/card/hand'
 
 export interface GameConfig {
   player: number

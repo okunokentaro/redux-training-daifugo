@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { GameConfig, initGame, State } from '../modules/game'
-import { Hand } from '../models/hand'
+import { Hand } from '../models/card/hand'
 
 interface StateToProps {
   hands: Hand[]
