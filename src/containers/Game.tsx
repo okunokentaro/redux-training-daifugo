@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { lifecycle } from 'recompose'
+import { lifecycle, pure } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
@@ -30,17 +30,17 @@ const mapDispatchToProps = (dispatch: Dispatch<void>) =>
     initGame: gameConfig => dispatch(initGame(gameConfig)),
   } as DispatchToProps)
 
-const Game = ({ hands }: Props) => (
-  <div>{hands.map((hand, i) => <p key={i}>{hand.toString()}</p>)}</div>
-)
-
-const Initializer = lifecycle<DispatchToProps, State>({
+const Game = lifecycle<DispatchToProps, State>({
   componentDidMount() {
     this.props.initGame({ player: 4 })
   },
-})(Game)
+})(
+  pure(({ hands }: Props) => (
+    <div>{hands.map((hand, i) => <p key={i}>{hand.toString()}</p>)}</div>
+  )),
+)
 
 export default connect<StateToProps, DispatchToProps, void, State>(
   mapStateToProps,
   mapDispatchToProps,
-)(Initializer)
+)(Game)
