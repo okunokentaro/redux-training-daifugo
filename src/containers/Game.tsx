@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<void>) =>
 
 const Game = lifecycle<DispatchToProps, State>({
   componentDidMount() {
-    this.props.initGame({ player: 4 })
+    this.props.initGame({ numOfPlayers: 4 })
   },
 })(
   pure(({ hands }: Props) => (

@@ -4,7 +4,7 @@ import { Deck } from '../models/card/deck'
 import { Hand } from '../models/card/hand'
 
 export interface GameConfig {
-  player: number
+  numOfPlayers: number
 }
 
 export interface State {
@@ -28,9 +28,9 @@ const initialState: State = { deck: Deck.init(), hands: [] }
 export default reducerWithInitialState<State>(initialState).case(
   initGame,
   (state, gameConfig) => {
-    const player = gameConfig.player
+    const numOfPlayers = gameConfig.numOfPlayers
     const deck = state.deck.shuffle()
-    const hands = deck.deal(player)
+    const hands = deck.deal(numOfPlayers)
 
     return { ...state, deck, hands }
   },
