@@ -1,7 +1,8 @@
 import actionCreatorFactory from 'typescript-fsa'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
+
 import { Deck } from '../models/card/deck'
-import { Hand } from '../models/card/hand'
+import { makePlayers, Player } from '../models/player'
 
 export interface GameConfig {
   numOfPlayers: number
@@ -9,7 +10,7 @@ export interface GameConfig {
 
 export interface State {
   deck: Deck
-  hands: Hand[]
+  players: Player[]
 }
 
 //
@@ -19,19 +20,21 @@ export interface State {
 const actionCreator = actionCreatorFactory()
 export const initGame = actionCreator<GameConfig>('INIT_GAME')
 
+const initGameHandler = (state: State, config: GameConfig) /* inference */ => {
+  const num = config.numOfPlayers
+
+  const deck = state.deck.shuffle()
+  const hands = deck.deal(num)
+  const players = makePlayers(num, hands)
+
+  return { ...state, deck, players }
+}
+
 //
 // Reducer
 //
 
-const initialState: State = { deck: Deck.init(), hands: [] }
-
-export default reducerWithInitialState<State>(initialState).case(
-  initGame,
-  (state, gameConfig) => {
-    const numOfPlayers = gameConfig.numOfPlayers
-    const deck = state.deck.shuffle()
-    const hands = deck.deal(numOfPlayers)
-
-    return { ...state, deck, hands }
-  },
-)
+export default reducerWithInitialState<State>({
+  deck: Deck.init(),
+  players: [],
+}).case(initGame, initGameHandler)
