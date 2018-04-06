@@ -20,4 +20,8 @@ export class Card {
     instance.id = this.id
     return instance
   }
+
+  eq(other: Card): boolean {
+    return this.id === other.id
+  }
 }

@@ -18,6 +18,8 @@ export interface State {
   deck: Deck
   players: Player[]
   turn: number
+  board: Card[]
+  numOfPlayers: number
 }
 
 //
@@ -28,22 +30,38 @@ const actionCreator = actionCreatorFactory()
 
 export const initGame = actionCreator<GameConfig>('INIT_GAME')
 const initGameHandler = (state: State, config: GameConfig): State => {
-  const num = config.numOfPlayers
+  const numOfPlayers = config.numOfPlayers
 
   const deck = state.deck.shuffle()
-  const dealResult = deck.deal(num)
-  const players = makePlayers(num, dealResult.hands)
+  const dealResult = deck.deal(numOfPlayers)
+  const players = makePlayers(numOfPlayers, dealResult.hands)
 
-  return { ...state, deck: dealResult.deck, players }
+  return { ...state, deck: dealResult.deck, players, numOfPlayers }
 }
 
 export const pullOutCard = actionCreator<PullOutCardPayload>('PULL_OUT_CARD')
 const pullOutCardHandler = (
   state: State,
-  payload: PullOutCardPayload,
+  { player, card }: PullOutCardPayload,
 ): State => {
-  console.log(payload)
-  return { ...state }
+  return {
+    ...state,
+    board: state.board.concat([card]),
+    players: state.players.reduce(
+      (acc, v) => {
+        if (v.eq(player)) {
+          const reduced = v.releaseCard(card)
+          acc.push(reduced)
+          return acc
+        }
+
+        acc.push(v)
+        return acc
+      },
+      [] as Player[],
+    ),
+    turn: state.turn + 1,
+  }
 }
 
 //
@@ -54,6 +72,8 @@ export default reducerWithInitialState<State>({
   deck: Deck.init(),
   players: [],
   turn: 0,
+  board: [],
+  numOfPlayers: 0,
 })
   .case(initGame, initGameHandler)
   .case(pullOutCard, pullOutCardHandler)

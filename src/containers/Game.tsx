@@ -11,6 +11,8 @@ import { Card } from '../models/card/card'
 interface StateToProps {
   players: Player[]
   turn: number
+  numOfPlayers: number
+  board: Card[]
 }
 
 interface DispatchToProps {
@@ -28,6 +30,8 @@ const mapStateToProps = (state: State) =>
   ({
     players: state.players,
     turn: state.turn,
+    numOfPlayers: state.numOfPlayers,
+    board: state.board,
   } as StateToProps)
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
@@ -41,14 +45,22 @@ const Game = lifecycle<DispatchToProps, State>({
     this.props.initGame({ numOfPlayers: 4 })
   },
 })(
-  pure(function Game({ players, turn, pullOutCard }: Props) {
+  pure(function Game({
+    players,
+    turn,
+    numOfPlayers,
+    board,
+    pullOutCard,
+  }: Props) {
     return (
       <div>
         <p>{turn}</p>
+        <p>{JSON.stringify(board)}</p>
         {players.map(player => (
           <PlayerComponent
             key={player.id}
             turn={turn}
+            numOfPlayers={numOfPlayers}
             player={player}
             onClickCard={card => pullOutCard(player, card)}
           />

@@ -14,4 +14,8 @@ export class Hand {
   toArray(): Card[] {
     return this.list
   }
+
+  filterByCard(card: Card): Hand {
+    return new Hand(this.list.filter(v => !v.eq(card)))
+  }
 }

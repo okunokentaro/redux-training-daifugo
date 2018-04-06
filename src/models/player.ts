@@ -1,5 +1,6 @@
 import { v4 } from 'uuid'
 import { Hand } from './card/hand'
+import { Card } from './card/card'
 
 export const makePlayers = (numOfPlayers: number, hands: Hand[]) => {
   const players = [...Array(numOfPlayers)].map((_, i) => new Player(i))
@@ -39,9 +40,19 @@ export class Player {
     return instance
   }
 
+  eq(other: Player): boolean {
+    return this.id === other.id
+  }
+
   pickHand(hand: Hand): Player {
     const player = this.clone()
     player.hand_ = hand
+    return player
+  }
+
+  releaseCard(card: Card): Player {
+    const player = this.clone()
+    player.hand_ = this.hand.filterByCard(card)
     return player
   }
 }
