@@ -3,9 +3,10 @@ import { lifecycle, pure } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { GameConfig, initGame, State } from '../modules/game'
-import { Player } from '../models/player'
 import PlayerComponent from '../components/PlayerComponent'
+import { GameConfig, initGame, pullOutCard, State } from '../modules/game'
+import { Player } from '../models/player'
+import { Card } from '../models/card/card'
 
 interface StateToProps {
   players: Player[]
@@ -14,7 +15,7 @@ interface StateToProps {
 
 interface DispatchToProps {
   initGame: (config: GameConfig) => void
-  pullOutCard: () => void
+  pullOutCard: (card: Card) => void
 }
 
 type Props = StateToProps & DispatchToProps
@@ -32,7 +33,7 @@ const mapStateToProps = (state: State) =>
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
     initGame: config => dispatch(initGame(config)),
-    pullOutCard: () => console.log('pullOutCard'),
+    pullOutCard: card => dispatch(pullOutCard(card)),
   } as DispatchToProps)
 
 const Game = lifecycle<DispatchToProps, State>({
@@ -49,7 +50,7 @@ const Game = lifecycle<DispatchToProps, State>({
             key={player.id}
             turn={turn}
             player={player}
-            onClickCard={() => pullOutCard()}
+            onClickCard={card => pullOutCard(card)}
           />
         ))}
       </div>
