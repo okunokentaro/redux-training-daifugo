@@ -9,6 +9,11 @@ export interface GameConfig {
   numOfPlayers: number
 }
 
+interface PullOutCardPayload {
+  player: Player
+  card: Card
+}
+
 export interface State {
   deck: Deck
   players: Player[]
@@ -16,18 +21,12 @@ export interface State {
 }
 
 //
-// ActionCreators
+// Actions
 //
 
 const actionCreator = actionCreatorFactory()
 
 export const initGame = actionCreator<GameConfig>('INIT_GAME')
-export const pullOutCard = actionCreator<Card>('PULL_OUT_CARD')
-
-//
-// Handlers
-//
-
 const initGameHandler = (state: State, config: GameConfig): State => {
   const num = config.numOfPlayers
 
@@ -38,8 +37,12 @@ const initGameHandler = (state: State, config: GameConfig): State => {
   return { ...state, deck: dealResult.deck, players }
 }
 
-const pullOutCardHandler = (state: State, card: Card): State => {
-  console.log(card)
+export const pullOutCard = actionCreator<PullOutCardPayload>('PULL_OUT_CARD')
+const pullOutCardHandler = (
+  state: State,
+  payload: PullOutCardPayload,
+): State => {
+  console.log(payload)
   return { ...state }
 }
 
