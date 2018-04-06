@@ -24,10 +24,10 @@ const initGameHandler = (state: State, config: GameConfig) /* inference */ => {
   const num = config.numOfPlayers
 
   const deck = state.deck.shuffle()
-  const hands = deck.deal(num)
-  const players = makePlayers(num, hands)
+  const dealResult = deck.deal(num)
+  const players = makePlayers(num, dealResult.hands)
 
-  return { ...state, deck, players }
+  return { ...state, deck: dealResult.deck, players }
 }
 
 //

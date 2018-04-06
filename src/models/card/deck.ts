@@ -1,6 +1,11 @@
 import { Card, Suit } from './card'
 import { Hand } from './hand'
 
+interface DealResult {
+  deck: Deck
+  hands: Hand[]
+}
+
 /**
  * the Fisher–Yates shuffle algorithm
  * https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
@@ -18,6 +23,10 @@ const cloneCards = (list: Card[]): Card[] => {
 }
 
 export class Deck {
+  static blank(): Deck {
+    return new Deck([])
+  }
+
   static init() {
     const suits = ['S', 'D', 'C', 'H'] as Suit[]
     const n = 13
@@ -38,7 +47,7 @@ export class Deck {
     return new Deck(arr)
   }
 
-  deal(player: number): Hand[] {
+  deal(player: number): DealResult {
     const initial = [...Array(player)].map(_ => []) as Card[][]
 
     const cards = this.list.reduce((acc, v, i) => {
@@ -46,6 +55,9 @@ export class Deck {
       return acc
     }, initial)
 
-    return cards.map(v => new Hand(v))
+    return {
+      deck: Deck.blank(),
+      hands: cards.map(v => new Hand(v)),
+    }
   }
 }
