@@ -1,5 +1,7 @@
 export type Suit = 'S' | 'C' | 'D' | 'H'
 
+export const suits = ['S', 'D', 'C', 'H'] as Suit[]
+
 export class Card {
   constructor(private suit: Suit, private num: number) {}
 

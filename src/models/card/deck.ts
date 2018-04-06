@@ -1,4 +1,4 @@
-import { Card, Suit } from './card'
+import { Card, suits } from './card'
 import { Hand } from './hand'
 
 interface DealResult {
@@ -28,7 +28,6 @@ export class Deck {
   }
 
   static init() {
-    const suits = ['S', 'D', 'C', 'H'] as Suit[]
     const n = 13
 
     const list = suits.map(v => [...Array(n)].map((_, i) => new Card(v, i + 1)))
