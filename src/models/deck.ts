@@ -1,4 +1,5 @@
 import { Card, Suit } from './card'
+import { Hand } from './hand'
 
 /**
  * the Fisher–Yates shuffle algorithm
@@ -16,13 +17,13 @@ const cloneCards = (list: Card[]): Card[] => {
   return list.map(v => v.clone())
 }
 
-export class Cards {
+export class Deck {
   static init() {
     const suits = ['S', 'D', 'C', 'H'] as Suit[]
     const n = 13
 
     const list = suits.map(v => [...Array(n)].map((_, i) => new Card(v, i + 1)))
-    return new Cards(([] as Card[]).concat(...list))
+    return new Deck(([] as Card[]).concat(...list))
   }
 
   constructor(private list: Card[]) {}
@@ -31,20 +32,20 @@ export class Cards {
     return this.list.map(v => v.toString()).join(' ')
   }
 
-  shuffle(): Cards {
+  shuffle(): Deck {
     const arr = cloneCards(this.list)
     mutateShuffle(arr)
-    return new Cards(arr)
+    return new Deck(arr)
   }
 
-  deal(player: number): Cards[] {
+  deal(player: number): Hand[] {
     const initial = [...Array(player)].map(_ => []) as Card[][]
 
-    const rawCards = this.list.reduce((acc, v, i) => {
+    const cards = this.list.reduce((acc, v, i) => {
       acc[i % player].push(v)
       return acc
     }, initial)
 
-    return rawCards.map(v => new Cards(v))
+    return cards.map(v => new Hand(v))
   }
 }

@@ -4,14 +4,14 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { GameConfig, initGame, State } from '../modules/game'
-import { Cards } from '../models/cards'
+import { Hand } from '../models/hand'
 
 interface StateToProps {
-  hands: Cards[]
+  hands: Hand[]
 }
 
 interface DispatchToProps {
-  initGame: (gameConfig: GameConfig) => void
+  initGame: (config: GameConfig) => void
 }
 
 type Props = StateToProps & DispatchToProps
@@ -27,7 +27,7 @@ const mapStateToProps = (state: State) =>
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
-    initGame: gameConfig => dispatch(initGame(gameConfig)),
+    initGame: config => dispatch(initGame(config)),
   } as DispatchToProps)
 
 const Game = lifecycle<DispatchToProps, State>({

@@ -1,14 +1,15 @@
 import actionCreatorFactory from 'typescript-fsa'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
-import { Cards } from '../models/cards'
+import { Deck } from '../models/deck'
+import { Hand } from '../models/hand'
 
 export interface GameConfig {
   player: number
 }
 
 export interface State {
-  cards: Cards
-  hands: Cards[]
+  deck: Deck
+  hands: Hand[]
 }
 
 //
@@ -22,15 +23,15 @@ export const initGame = actionCreator<GameConfig>('INIT_GAME')
 // Reducer
 //
 
-const initialState: State = { cards: Cards.init(), hands: [] }
+const initialState: State = { deck: Deck.init(), hands: [] }
 
 export default reducerWithInitialState<State>(initialState).case(
   initGame,
   (state, gameConfig) => {
     const player = gameConfig.player
-    const cards = state.cards.shuffle()
-    const hands = cards.deal(player)
+    const deck = state.deck.shuffle()
+    const hands = deck.deal(player)
 
-    return { ...state, cards, hands }
+    return { ...state, deck, hands }
   },
 )
