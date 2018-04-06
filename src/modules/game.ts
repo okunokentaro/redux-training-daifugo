@@ -11,6 +11,7 @@ export interface GameConfig {
 export interface State {
   deck: Deck
   players: Player[]
+  turn: number
 }
 
 //
@@ -37,4 +38,5 @@ const initGameHandler = (state: State, config: GameConfig) /* inference */ => {
 export default reducerWithInitialState<State>({
   deck: Deck.init(),
   players: [],
+  turn: 0,
 }).case(initGame, initGameHandler)
