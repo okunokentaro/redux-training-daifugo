@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import { GameConfig, initGame, State } from '../modules/game'
 import { Player } from '../models/player'
+import PlayerComponent from '../components/PlayerComponent'
 
 interface StateToProps {
   players: Player[]
@@ -37,12 +38,16 @@ const Game = lifecycle<DispatchToProps, State>({
     this.props.initGame({ numOfPlayers: 4 })
   },
 })(
-  pure(({ players, turn }: Props) => (
-    <div>
-      <p>{turn}</p>
-      {players.map((player, i) => <p key={i}>{player.toString()}</p>)}
-    </div>
-  )),
+  pure(function Game({ players, turn }: Props) {
+    return (
+      <div>
+        <p>{turn}</p>
+        {players.map(player => (
+          <PlayerComponent key={player.id} player={player} />
+        ))}
+      </div>
+    )
+  }),
 )
 
 export default connect<StateToProps, DispatchToProps, void, State>(
