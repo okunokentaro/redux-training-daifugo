@@ -14,6 +14,7 @@ interface StateToProps {
 
 interface DispatchToProps {
   initGame: (config: GameConfig) => void
+  pullOutCard: () => void
 }
 
 type Props = StateToProps & DispatchToProps
@@ -31,6 +32,7 @@ const mapStateToProps = (state: State) =>
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
     initGame: config => dispatch(initGame(config)),
+    pullOutCard: () => console.log('pullOutCard'),
   } as DispatchToProps)
 
 const Game = lifecycle<DispatchToProps, State>({
@@ -38,12 +40,17 @@ const Game = lifecycle<DispatchToProps, State>({
     this.props.initGame({ numOfPlayers: 4 })
   },
 })(
-  pure(function Game({ players, turn }: Props) {
+  pure(function Game({ players, turn, pullOutCard }: Props) {
     return (
       <div>
         <p>{turn}</p>
         {players.map(player => (
-          <PlayerComponent key={player.id} player={player} />
+          <PlayerComponent
+            key={player.id}
+            turn={turn}
+            player={player}
+            onClickCard={() => pullOutCard()}
+          />
         ))}
       </div>
     )

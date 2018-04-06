@@ -10,4 +10,8 @@ export class Hand {
   toString(): string {
     return this.list.map(v => v.toString()).join(' ')
   }
+
+  toArray(): Card[] {
+    return this.list
+  }
 }

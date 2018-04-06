@@ -6,7 +6,7 @@ export const makePlayers = (numOfPlayers: number, hands: Hand[]) => {
 }
 
 export class Player {
-  private hand = Hand.blank()
+  private hand_ = Hand.blank()
 
   constructor(private id_: number) {}
 
@@ -14,8 +14,12 @@ export class Player {
     return this.id_
   }
 
+  get hand(): Hand {
+    return this.hand_
+  }
+
   toString(): string {
-    return `${this.id_}: ${this.hand.toString()}`
+    return `${this.id_}: ${this.hand_.toString()}`
   }
 
   clone(): Player {
@@ -24,7 +28,7 @@ export class Player {
 
   pickHand(hand: Hand): Player {
     const player = this.clone()
-    player.hand = hand
+    player.hand_ = hand
     return player
   }
 }
