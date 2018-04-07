@@ -26,7 +26,7 @@ export default pure(function PlayerComponent({
     return (
       <div>
         {player.hand.toArray().map((card, i) => {
-          const disabled = !situation.isAvailable(board, card)
+          const disabled = !situation.cardIsAvailable(card, board)
           return (
             <button
               key={i}

@@ -14,6 +14,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "@types/jest": "^22.2.2",
     "@types/react": "^16.1.0",
     "@types/react-dom": "^16.0.4",
     "@types/react-redux": "^5.0.15",
@@ -24,6 +25,7 @@
     "jest": "^22.4.3",
     "lint-staged": "^7.0.1",
     "prettier": "^1.11.1",
+    "ts-jest": "^22.4.2",
     "ts-loader": "^4.1.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
@@ -33,6 +35,20 @@
     "webpack-dev-server": "^3.1.1"
   },
   "homepage": "https://github.com/armorik83/redux-training-daifugo#readme",
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)test)\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
   "keywords": [],
   "license": "ISC",
   "lint-staged": {
@@ -56,6 +72,7 @@
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
     "start": "webpack-dev-server --hot --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watch",
+    "test:single-run": "jest"
   }
 }

@@ -8,7 +8,7 @@ export class Situation {
 
   private constructor(private order: number[]) {}
 
-  isAvailable(board: Card[], card: Card): boolean {
+  cardIsAvailable(card: Card, board: Card[]): boolean {
     if (board.length === 0) {
       return true
     }
