@@ -4,6 +4,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers'
 import { Deck } from '../models/card/deck'
 import { makePlayers, Player } from '../models/player'
 import { Card } from '../models/card/card'
+import { Situation } from '../models/situation'
 
 export interface GameConfig {
   numOfPlayers: number
@@ -20,6 +21,7 @@ export interface State {
   turn: number
   board: Card[]
   numOfPlayers: number
+  situation: Situation
 }
 
 //
@@ -74,6 +76,7 @@ export default reducerWithInitialState<State>({
   turn: 0,
   board: [],
   numOfPlayers: 0,
+  situation: Situation.init(),
 })
   .case(initGame, initGameHandler)
   .case(pullOutCard, pullOutCardHandler)

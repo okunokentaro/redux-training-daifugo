@@ -7,8 +7,16 @@ export const suits = ['S', 'D', 'C', 'H'] as Suit[]
 export class Card {
   private id: string
 
-  constructor(private suit: Suit, private num: number) {
+  constructor(private suit_: Suit, private num_: number) {
     this.id = v4()
+  }
+
+  get suit(): Suit {
+    return this.suit_
+  }
+
+  get num(): number {
+    return this.num_
   }
 
   toString(): string {

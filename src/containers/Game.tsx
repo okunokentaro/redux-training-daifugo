@@ -8,12 +8,14 @@ import BoardComponent from '../components/BoardComponent'
 import { GameConfig, initGame, pullOutCard, State } from '../modules/game'
 import { Player } from '../models/player'
 import { Card } from '../models/card/card'
+import { Situation } from '../models/situation'
 
 interface StateToProps {
   players: Player[]
   turn: number
   numOfPlayers: number
   board: Card[]
+  situation: Situation
 }
 
 interface DispatchToProps {
@@ -33,6 +35,7 @@ const mapStateToProps = (state: State) =>
     turn: state.turn,
     numOfPlayers: state.numOfPlayers,
     board: state.board,
+    situation: state.situation,
   } as StateToProps)
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
@@ -51,6 +54,7 @@ const Game = lifecycle<DispatchToProps, State>({
     turn,
     numOfPlayers,
     board,
+    situation,
     pullOutCard,
   }: Props) {
     return (
@@ -63,6 +67,8 @@ const Game = lifecycle<DispatchToProps, State>({
             turn={turn}
             numOfPlayers={numOfPlayers}
             player={player}
+            board={board}
+            situation={situation}
             onClickCard={card => pullOutCard(player, card)}
           />
         ))}
