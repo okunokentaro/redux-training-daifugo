@@ -4,6 +4,7 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import PlayerComponent from '../components/PlayerComponent'
+import BoardComponent from '../components/BoardComponent'
 import { GameConfig, initGame, pullOutCard, State } from '../modules/game'
 import { Player } from '../models/player'
 import { Card } from '../models/card/card'
@@ -55,7 +56,7 @@ const Game = lifecycle<DispatchToProps, State>({
     return (
       <div>
         <p>{turn}</p>
-        <p>{JSON.stringify(board)}</p>
+        <BoardComponent board={board} />
         {players.map(player => (
           <PlayerComponent
             key={player.id}
