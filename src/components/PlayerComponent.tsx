@@ -1,18 +1,10 @@
 import * as React from 'react'
 import { pure } from 'recompose'
 
+import HandComponent from './HandComponent'
 import { Player } from '../models/player'
 import { Card } from '../models/card/card'
 import { Situation } from '../models/situation'
-
-interface Props {
-  player: Player
-  turn: number
-  numOfPlayers: number
-  board: Card[]
-  situation: Situation
-  onClickCard: (card: Card) => void
-}
 
 export default pure(function PlayerComponent({
   player,
@@ -21,23 +13,22 @@ export default pure(function PlayerComponent({
   board,
   situation,
   onClickCard,
-}: Props) {
+}: {
+  player: Player
+  turn: number
+  numOfPlayers: number
+  board: Card[]
+  situation: Situation
+  onClickCard: (card: Card) => void
+}) {
   if (turn % numOfPlayers === player.order) {
     return (
-      <div>
-        {player.hand.toArray().map((card, i) => {
-          const disabled = !situation.cardIsAvailable(card, board)
-          return (
-            <button
-              key={i}
-              disabled={disabled}
-              onClick={() => onClickCard(card)}
-            >
-              {card.toString()}
-            </button>
-          )
-        })}
-      </div>
+      <HandComponent
+        situation={situation}
+        board={board}
+        hand={player.hand}
+        onClickCard={onClickCard}
+      />
     )
   }
 
