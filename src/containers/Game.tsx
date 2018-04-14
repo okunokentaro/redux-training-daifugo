@@ -2,7 +2,7 @@ import * as React from 'react'
 import { pure } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { hello, State } from '../modules/game'
+import { hello, State } from '../reducers/environment'
 
 interface StateToProps {}
 

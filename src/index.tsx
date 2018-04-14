@@ -3,10 +3,10 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
-import gameReducer from './modules/game'
+import reducers from './reducers'
 import Game from './containers/Game'
 
-const store = createStore(gameReducer)
+const store = createStore(reducers)
 
 render(
   <Provider store={store}>
