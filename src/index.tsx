@@ -4,13 +4,13 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
 import reducers from './reducers'
-import Game from './containers/Game'
+import Screen from './containers/Screen'
 
 const store = createStore(reducers)
 
 render(
   <Provider store={store}>
-    <Game />
+    <Screen />
   </Provider>,
   document.getElementById('root'),
 )

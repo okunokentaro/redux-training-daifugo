@@ -23,11 +23,11 @@ const mapDispatchToProps = (dispatch: Dispatch<void>) =>
     hello: () => dispatch(hello({})),
   } as DispatchToProps)
 
-const Game = pure(function Game({ hello }: Props) {
+const Screen = pure(function Game({ hello }: Props) {
   return <button onClick={() => hello()}>hello</button>
 })
 
 export default connect<StateToProps, DispatchToProps, void, State>(
   mapStateToProps,
   mapDispatchToProps,
-)(Game)
+)(Screen)
