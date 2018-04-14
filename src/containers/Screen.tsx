@@ -3,8 +3,8 @@ import { pure } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { playGame } from '../reducers/environment'
 import { State } from '../reducers'
+import { playGame } from '../thunks/game'
 
 interface StateToProps {
   gameIsRunning: boolean
@@ -25,9 +25,9 @@ const mapStateToProps = (state: State) =>
     gameIsRunning: state.environment.gameIsRunning,
   } as StateToProps)
 
-const mapDispatchToProps = (dispatch: Dispatch<void>) =>
+const mapDispatchToProps = (dispatch: Dispatch<State>) =>
   ({
-    playGame: () => dispatch(playGame({})),
+    playGame: () => dispatch(playGame()),
   } as DispatchToProps)
 
 const Screen = pure(function Game({ gameIsRunning, playGame }: Props) {

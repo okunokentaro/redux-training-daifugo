@@ -11,8 +11,8 @@ export interface EnvironmentState {
 
 const actionCreator = actionCreatorFactory()
 
-export const playGame = actionCreator<{}>('HELLO')
-const playGameHandler = (state: EnvironmentState): EnvironmentState => {
+export const startGame = actionCreator<{}>('START_GAME')
+const startGameHandler = (state: EnvironmentState): EnvironmentState => {
   return { ...state, gameIsRunning: true }
 }
 
@@ -22,4 +22,4 @@ const playGameHandler = (state: EnvironmentState): EnvironmentState => {
 
 export default reducerWithInitialState<EnvironmentState>({
   gameIsRunning: false,
-}).case(playGame, playGameHandler)
+}).case(startGame, startGameHandler)
