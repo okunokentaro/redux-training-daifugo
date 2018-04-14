@@ -2,12 +2,16 @@ import * as React from 'react'
 import { pure } from 'recompose'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { hello, State } from '../reducers/environment'
 
-interface StateToProps {}
+import { playGame } from '../reducers/environment'
+import { State } from '../reducers'
+
+interface StateToProps {
+  gameIsRunning: boolean
+}
 
 interface DispatchToProps {
-  hello: () => void
+  playGame: () => void
 }
 
 type Props = StateToProps & DispatchToProps
@@ -16,15 +20,21 @@ type Props = StateToProps & DispatchToProps
 // Implementation
 //
 
-const mapStateToProps = (state: State) => ({} as StateToProps)
+const mapStateToProps = (state: State) =>
+  ({
+    gameIsRunning: state.environment.gameIsRunning,
+  } as StateToProps)
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
-    hello: () => dispatch(hello({})),
+    playGame: () => dispatch(playGame({})),
   } as DispatchToProps)
 
-const Screen = pure(function Game({ hello }: Props) {
-  return <button onClick={() => hello()}>hello</button>
+const Screen = pure(function Game({ gameIsRunning, playGame }: Props) {
+  if (!gameIsRunning) {
+    return <button onClick={() => playGame()}>playGame</button>
+  }
+  return <p>running!</p>
 })
 
 export default connect<StateToProps, DispatchToProps, void, State>(

@@ -1,7 +1,9 @@
 import actionCreatorFactory from 'typescript-fsa'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
 
-export interface State {}
+export interface EnvironmentState {
+  gameIsRunning: boolean
+}
 
 //
 // Actions
@@ -9,14 +11,15 @@ export interface State {}
 
 const actionCreator = actionCreatorFactory()
 
-export const hello = actionCreator<{}>('HELLO')
-const helloHandler = (state: State): State => {
-  console.log('hello')
-  return { ...state }
+export const playGame = actionCreator<{}>('HELLO')
+const playGameHandler = (state: EnvironmentState): EnvironmentState => {
+  return { ...state, gameIsRunning: true }
 }
 
 //
 // Reducer
 //
 
-export default reducerWithInitialState<State>({}).case(hello, helloHandler)
+export default reducerWithInitialState<EnvironmentState>({
+  gameIsRunning: false,
+}).case(playGame, playGameHandler)

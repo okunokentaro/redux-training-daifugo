@@ -1,4 +1,8 @@
 import { combineReducers } from 'redux'
-import environment from './environment'
+import environment, { EnvironmentState } from './environment'
 
-export default combineReducers({ environment })
+export interface State {
+  environment: EnvironmentState
+}
+
+export default combineReducers<State>({ environment })
