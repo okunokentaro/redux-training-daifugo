@@ -40,8 +40,9 @@ const mapStateToProps = (state: State) =>
 
 const mapDispatchToProps = (dispatch: Dispatch<void>) =>
   ({
-    initGame: config => dispatch(initGame(config)),
+    initGame: config => dispatch(initGame({ config })),
     pullOutCard: (player, card) => dispatch(pullOutCard({ player, card })),
+    pass: player => dispatch(pass({ player })),
   } as DispatchToProps)
 
 const Game = lifecycle<DispatchToProps, State>({
@@ -56,6 +57,7 @@ const Game = lifecycle<DispatchToProps, State>({
     board,
     situation,
     pullOutCard,
+    pass,
   }: Props) {
     return (
       <div>
@@ -70,6 +72,7 @@ const Game = lifecycle<DispatchToProps, State>({
             board={board}
             situation={situation}
             onClickCard={card => pullOutCard(player, card)}
+            onClickPass={() => pass(player)}
           />
         ))}
       </div>

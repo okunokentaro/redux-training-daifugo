@@ -6,15 +6,6 @@ import { makePlayers, Player } from '../models/player'
 import { Card } from '../models/card/card'
 import { Situation } from '../models/situation'
 
-export interface GameConfig {
-  numOfPlayers: number
-}
-
-interface PullOutCardPayload {
-  player: Player
-  card: Card
-}
-
 export interface State {
   deck: Deck
   players: Player[]
@@ -30,9 +21,17 @@ export interface State {
 
 const actionCreator = actionCreatorFactory()
 
-export const initGame = actionCreator<GameConfig>('INIT_GAME')
-const initGameHandler = (state: State, config: GameConfig): State => {
-  const numOfPlayers = config.numOfPlayers
+interface InitGamePayload {
+  gameConfig: {
+    numOfPlayers: number
+  }
+}
+export const initGame = actionCreator<InitGamePayload>('INIT_GAME')
+const initGameHandler = (
+  state: State,
+  { gameConfig }: InitGamePayload,
+): State => {
+  const numOfPlayers = gameConfig.numOfPlayers
 
   const deck = state.deck.shuffle()
   const dealResult = deck.deal(numOfPlayers)
@@ -41,6 +40,10 @@ const initGameHandler = (state: State, config: GameConfig): State => {
   return { ...state, deck: dealResult.deck, players, numOfPlayers }
 }
 
+interface PullOutCardPayload {
+  player: Player
+  card: Card
+}
 export const pullOutCard = actionCreator<PullOutCardPayload>('PULL_OUT_CARD')
 const pullOutCardHandler = (
   state: State,

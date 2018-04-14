@@ -13,6 +13,7 @@ export default pure(function PlayerComponent({
   board,
   situation,
   onClickCard,
+  onClickPass,
 }: {
   player: Player
   turn: number
@@ -20,6 +21,7 @@ export default pure(function PlayerComponent({
   board: Card[]
   situation: Situation
   onClickCard: (card: Card) => void
+  onClickPass: () => void
 }) {
   if (turn % numOfPlayers === player.order) {
     return (
@@ -28,6 +30,7 @@ export default pure(function PlayerComponent({
         board={board}
         hand={player.hand}
         onClickCard={onClickCard}
+        onClickPass={onClickPass}
       />
     )
   }

@@ -10,11 +10,13 @@ export default pure(function HandComponent({
   board,
   hand,
   onClickCard,
+  onClickPass,
 }: {
   situation: Situation
   board: Card[]
   hand: Hand
   onClickCard: (card: Card) => void
+  onClickPass: () => void
 }) {
   return (
     <div>
@@ -26,6 +28,7 @@ export default pure(function HandComponent({
           </button>
         )
       })}
+      <button onClick={() => onClickPass()}>Pass</button>
     </div>
   )
 })
