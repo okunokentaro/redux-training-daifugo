@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { pure } from 'recompose'
-import { Dispatch } from 'redux'
+import { AnyAction, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { State } from '../reducers'
@@ -25,7 +25,7 @@ const mapStateToProps = (state: State) =>
     gameIsRunning: state.environment.gameIsRunning,
   } as StateToProps)
 
-const mapDispatchToProps = (dispatch: Dispatch<State>) =>
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction, State>) =>
   ({
     playGame: () => dispatch(playGame()),
   } as DispatchToProps)
