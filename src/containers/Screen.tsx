@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction, State>) =>
     playGame: () => dispatch(playGame()),
   } as DispatchToProps)
 
-const Screen = pure(function Game({ gameIsRunning, playGame }: Props) {
+const Screen = pure(function Screen({ gameIsRunning, playGame }: Props) {
   if (!gameIsRunning) {
     return <button onClick={() => playGame()}>playGame</button>
   }
