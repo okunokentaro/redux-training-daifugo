@@ -34,7 +34,7 @@ export class Deck {
     return new Deck(([] as Card[]).concat(...list))
   }
 
-  constructor(private list: Card[]) {}
+  private constructor(private list: Card[]) {}
 
   toString(): string {
     return this.list.map(v => v.toString()).join(' ')
@@ -46,11 +46,11 @@ export class Deck {
     return new Deck(arr)
   }
 
-  deal(player: number): DealResult {
-    const initial = [...Array(player)].map(_ => []) as Card[][]
+  deal(numOfPlayer: number): DealResult {
+    const initial = [...Array(numOfPlayer)].map(_ => []) as Card[][]
 
     const cards = this.list.reduce((acc, v, i) => {
-      acc[i % player].push(v)
+      acc[i % numOfPlayer].push(v)
       return acc
     }, initial)
 
