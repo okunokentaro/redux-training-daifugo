@@ -2,6 +2,7 @@ import * as React from 'react'
 import { pure } from 'recompose'
 import { connect } from 'react-redux'
 
+import PlayerComponent from '../components/PlayerComponent'
 import { State } from '../reducers'
 import { Player } from '../models/player'
 
@@ -31,19 +32,11 @@ const mapDispatchToProps = () => ({} as DispatchToProps)
 
 const Board = pure(function Board({ players }: Props) {
   return (
-    <>
-      {players.map((player, i) => (
-        <div key={i}>
-          {
-            <ul>
-              {player.hand
-                .toArray()
-                .map(card => <li key={card.id}>{card.toString()}</li>)}
-            </ul>
-          }
-        </div>
+    <div>
+      {players.map(player => (
+        <PlayerComponent player={player} key={player.id} />
       ))}
-    </>
+    </div>
   )
 })
 
