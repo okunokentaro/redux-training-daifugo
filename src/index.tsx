@@ -1,16 +1,17 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
-import gameReducer from './modules/game'
-import Game from './containers/Game'
+import reducers from './reducers'
+import Screen from './containers/Screen'
 
-const store = createStore(gameReducer)
+const store = createStore(reducers, applyMiddleware(thunk))
 
 render(
   <Provider store={store}>
-    <Game />
+    <Screen />
   </Provider>,
   document.getElementById('root'),
 )

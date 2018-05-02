@@ -2,9 +2,10 @@ import { v4 } from 'uuid'
 import { Hand } from './card/hand'
 import { Card } from './card/card'
 
-export const makePlayers = (numOfPlayers: number, hands: Hand[]) => {
-  const players = [...Array(numOfPlayers)].map((_, i) => new Player(i))
-  return hands.map((hand, i) => players[i].pickHand(hand))
+export const makePlayers = (numOfPlayers: number, hands: Hand[]): Player[] => {
+  return [...Array(numOfPlayers)].map((_, i) =>
+    new Player(i).pickHand(hands[i]),
+  )
 }
 
 export class Player {
